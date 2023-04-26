@@ -12,3 +12,13 @@ class YahooFinanceManager:
         self.name = 'yf_manager'
 
 
+def get_ticker(ticker_name: str) -> yf.ticker.Ticker:
+    return yf.Ticker(ticker_name)
+
+
+# my_ticker = get_ticker('MSFT')
+# print(my_ticker.info)
+
+
+my_ticker_1 = yf.download('MSFT', '2023-01-01', '2023-04-01')
+print(my_ticker_1)
