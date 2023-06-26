@@ -2,29 +2,27 @@ import pandas as pd
 import yfinance as yf
 
 
-class YahooFinanceAPI:
+class YahooFinanceManager:
     """
     interface with yahoo finance API
-    To be developed when functions are developed
-    :param:
     """
 
     def __init__(self):
         self.ticker_data = None
         self.ticker_settings = {
-            'ticker_name': None,
+            'ticker_list': None,
             'start_date': None,
             'end_date': None,
             'interval': None
         }
 
     def set_ticker_settings(self,
-                            ticker_name: str = None,
+                            ticker_list: str = None,
                             start_date: str = None,
                             end_date: str = None,
                             interval: str = None) -> None:
         new_settings = locals()
-        new_settings = {k: new_settings[k] for k in new_settings if k in ('ticker_name',
+        new_settings = {k: new_settings[k] for k in new_settings if k in ('ticker_list',
                                                                           'start_date',
                                                                           'end_date',
                                                                           'interval') and new_settings[k]}
@@ -34,15 +32,10 @@ class YahooFinanceAPI:
         """
         Download data from yahoo finance API
         """
-        if self.ticker_settings['end_date']:
-            self.ticker_data = yf.download(tickers=self.ticker_settings['ticker_name'],
-                                           start=self.ticker_settings['start_date'],
-                                           end=self.ticker_settings['end_date'],
-                                           interval=self.ticker_settings['interval'])
-        else:
-            self.ticker_data = yf.download(tickers=self.ticker_settings['ticker_name'],
-                                           start=self.ticker_settings['start_date'],
-                                           interval=self.ticker_settings['interval'])
+        self.ticker_data = yf.download(tickers=self.ticker_settings['ticker_list'],
+                                       start=self.ticker_settings['start_date'],
+                                       end=self.ticker_settings['end_date'],
+                                       interval=self.ticker_settings['interval'])
 
     def get_ticker_data(self) -> pd.DataFrame:
         return self.ticker_data
@@ -50,11 +43,12 @@ class YahooFinanceAPI:
 
 pd.set_option('display.max_columns', None)
 
-yf_manager = YahooFinanceAPI()
-# yf_manager.set_ticker_settings('^GDAXI', '2023-06-05', '2023-06-12', '1h')
-yf_manager.set_ticker_settings('^GDAXI', '2023-06-05', None, '1h')
+yf_manager = YahooFinanceManager()
+# yf_manager.set_ticker_settings(['^GDAXI', 'EURUSD=X'], '2023-06-20', '2023-06-22', '1h')
+yf_manager.set_ticker_settings('^GDAXI', '2023-06-20', None, '1h')
 yf_manager.download_ticker_data()
 df_res = yf_manager.get_ticker_data()
+print(df_res.columns)
 
 
 print(df_res)
