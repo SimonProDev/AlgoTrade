@@ -27,4 +27,10 @@ settings.GMAIL_ADDRESS = str(os.getenv('GMAIL_ADDRESS'))
 settings.GMAIL_PASSWORD = str(os.getenv('GMAIL_PW'))
 
 # config for yf settings
-settings.TICKERS = ['EURUSD=X']
+settings.TICKERS = [
+    '^GDAXI',
+    'EURUSD=X',
+]
+settings.START_DT = '2023-06-19'
+settings.END_DT = '2023-06-23'
+settings.INTERVAL = '1h'

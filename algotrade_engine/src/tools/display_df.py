@@ -10,13 +10,10 @@ def display(df, name='dataframe', lines=1000):
     Based on pandastable lib
     Best perf with PyArrow to optimize spark to pandas dataframe conversion
 
-    `:param df:` a spark dataframe
+    `:param df:` a pandas dataframe
     `:param name:` name of the output window (default : 'dataframe')
     `:param lines:` number of lines to display (default = 1000)
     """
-
-    # moving spark dataframe to pandas
-    # df_panda = df.limit(lines).toPandas()
 
     # define the main gui window
     main_window = tk.Toplevel()
@@ -29,7 +26,3 @@ def display(df, name='dataframe', lines=1000):
     # hide root window and show
     main_window.master.withdraw()
     pt.show()
-
-
-# settings.logger.info('Add display method to pandas Dataframe')
-# DataFrame.display = display

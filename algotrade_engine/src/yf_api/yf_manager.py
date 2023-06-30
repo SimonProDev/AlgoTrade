@@ -1,5 +1,6 @@
 import pandas as pd
 import yfinance as yf
+import algotrade_engine.conf.settings as settings
 
 
 class YahooFinanceManager:
@@ -15,6 +16,13 @@ class YahooFinanceManager:
             'end_date': None,
             'interval': None
         }
+
+    def call_yf_api(self) -> None:
+        self.set_ticker_settings(settings.TICKERS,
+                                 settings.START_DT,
+                                 settings.END_DT,
+                                 settings.INTERVAL)
+        self.download_ticker_data()
 
     def set_ticker_settings(self,
                             ticker_list: str = None,

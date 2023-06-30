@@ -9,3 +9,6 @@ GMAIL_PASSWORD = None
 
 # yf settings
 TICKERS = None
+START_DT = None
+END_DT = None
+INTERVAL = None
