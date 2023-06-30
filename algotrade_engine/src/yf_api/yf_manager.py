@@ -39,17 +39,3 @@ class YahooFinanceManager:
 
     def get_ticker_data(self) -> pd.DataFrame:
         return self.ticker_data
-
-
-pd.set_option('display.max_columns', None)
-
-yf_manager = YahooFinanceManager()
-# yf_manager.set_ticker_settings(['^GDAXI', 'EURUSD=X'], '2023-06-20', '2023-06-22', '1h')
-yf_manager.set_ticker_settings('^GDAXI', '2023-06-20', None, '1h')
-yf_manager.download_ticker_data()
-df_res = yf_manager.get_ticker_data()
-print(df_res.columns)
-
-
-print(df_res)
-# print(df_res.loc['2023-06-05 10:00:00+02:00':'2023-06-05 17:00:00+02:00'])

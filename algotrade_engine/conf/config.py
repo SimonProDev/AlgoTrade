@@ -21,8 +21,10 @@ Date: 26/06/2023
 {separator}
 """
 
-
 # config for gmail logins
 load_dotenv()
 settings.GMAIL_ADDRESS = str(os.getenv('GMAIL_ADDRESS'))
 settings.GMAIL_PASSWORD = str(os.getenv('GMAIL_PW'))
+
+# config for yf settings
+settings.TICKERS = ['EURUSD=X']

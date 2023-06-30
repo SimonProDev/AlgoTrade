@@ -6,3 +6,6 @@ START_MESSAGE = None
 # gmail settings
 GMAIL_ADDRESS = None
 GMAIL_PASSWORD = None
+
+# yf settings
+TICKERS = None
