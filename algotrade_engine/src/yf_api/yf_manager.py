@@ -1,34 +1,47 @@
-import pandas as pd
 import yfinance as yf
 import algotrade_engine.conf.settings as settings
-
+from algotrade_engine.src.ticker import Ticker
 
 class YahooFinanceManager:
     """
-    interface with yahoo finance API
+    interface manager with yahoo finance API
     """
 
     def __init__(self):
-        self.ticker_data = None
+        self.raw_ticker_data = None
+        self.clean_ticker_data = {}
         self.ticker_settings = {
-            'ticker_list': None,
-            'start_date': None,
-            'end_date': None,
-            'interval': None
+            'ticker_list': [],
+            'start_date': '',
+            'end_date': '',
+            'interval': ''
         }
 
     def call_yf_api(self) -> None:
+        """
+        Function manager to set parameters, download and prepare data
+        :return: None
+        """
         self.set_ticker_settings(settings.TICKERS,
                                  settings.START_DT,
                                  settings.END_DT,
                                  settings.INTERVAL)
         self.download_ticker_data()
+        self.prepare_ticker_data()
 
     def set_ticker_settings(self,
-                            ticker_list: str = None,
+                            ticker_list: list = None,
                             start_date: str = None,
                             end_date: str = None,
                             interval: str = None) -> None:
+        """
+        Set parameters for yahoo finance API call
+        :param ticker_list: list of tickers defined in config
+        :param start_date: start date of data collected
+        :param end_date: end date of data collected
+        :param interval: interval of data collected
+        :return: None
+        """
         new_settings = locals()
         new_settings = {k: new_settings[k] for k in new_settings if k in ('ticker_list',
                                                                           'start_date',
@@ -39,11 +52,30 @@ class YahooFinanceManager:
     def download_ticker_data(self) -> None:
         """
         Download data from yahoo finance API
+        :return: None
         """
-        self.ticker_data = yf.download(tickers=self.ticker_settings['ticker_list'],
-                                       start=self.ticker_settings['start_date'],
-                                       end=self.ticker_settings['end_date'],
-                                       interval=self.ticker_settings['interval'])
+        self.raw_ticker_data = yf.download(tickers=self.ticker_settings['ticker_list'],
+                                           start=self.ticker_settings['start_date'],
+                                           end=self.ticker_settings['end_date'],
+                                           interval=self.ticker_settings['interval'])
 
-    def get_ticker_data(self) -> pd.DataFrame:
-        return self.ticker_data
+    def prepare_ticker_data(self) -> None:
+        """
+        Clean raw ticker data from yahoo finance API by creating a dict
+        with ticker_name and ticker object
+        :return: None
+        """
+        for ticker in self.ticker_settings.get('ticker_list'):
+            self.clean_ticker_data[ticker] = Ticker(ticker,
+                                                    'type_tbd',
+                                                    self.raw_ticker_data\
+                                                    .iloc[:, self.raw_ticker_data.columns.get_level_values(1) == ticker]
+                                                    )
+
+    def get_ticker_data(self) -> dict:
+        """
+        Return ticker data from yahoo finance API
+        after cleaning
+        :return: Dic of ticker object
+        """
+        return self.clean_ticker_data

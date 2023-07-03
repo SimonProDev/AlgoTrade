@@ -9,8 +9,10 @@ importlib.import_module('algotrade_engine.conf.config')
 
 yf_manager = YahooFinanceManager()
 yf_manager.call_yf_api()
-df_res = yf_manager.get_ticker_data()
+output_yf_api = yf_manager.get_ticker_data()
 
-display(df_res)
+# display(df_res)
 # display(df_res.iloc[:, df_res.columns.get_level_values(1) == '^GDAXI'])
+display(output_yf_api.get('^GDAXI').df)
+# print(output_yf_api.get('EURUSD=X'))
 print()
