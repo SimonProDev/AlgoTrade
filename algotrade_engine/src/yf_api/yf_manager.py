@@ -13,9 +13,9 @@ class YahooFinanceManager:
         self.clean_ticker_data = {}
         self.ticker_settings = {
             'ticker_list': [],
-            'start_date': '',
-            'end_date': '',
-            'interval': ''
+            'start_date': None,
+            'end_date': None,
+            'interval': None
         }
 
     def call_yf_api(self) -> None:
@@ -60,6 +60,13 @@ class YahooFinanceManager:
                                            end=self.ticker_settings['end_date'],
                                            interval=self.ticker_settings['interval'])
 
+    def clean_df(self, ticker):
+        cleaned_df = self.raw_ticker_data.iloc[:, self.raw_ticker_data.columns.get_level_values(1) == ticker] \
+            .sort_index(ascending=False) \
+            .dropna()
+        cleaned_df['t'] = [f't{i}' for i in range(len(cleaned_df.index))]
+        return cleaned_df
+
     def prepare_ticker_data(self) -> None:
         """
         Clean raw ticker data from yahoo finance API by creating a dict
@@ -69,10 +76,7 @@ class YahooFinanceManager:
         for ticker in self.ticker_settings.get('ticker_list'):
             self.clean_ticker_data[ticker] = Ticker(ticker,
                                                     'type_tbd',
-                                                    self.raw_ticker_data\
-                                                    .iloc[:, self.raw_ticker_data.columns.get_level_values(1) == ticker]
-                                                    .sort_index(ascending=False)
-                                                    )
+                                                    self.clean_df(ticker))
 
     def get_ticker_data(self) -> dict:
         """
