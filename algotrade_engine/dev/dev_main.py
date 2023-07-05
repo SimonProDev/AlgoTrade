@@ -13,6 +13,7 @@ output_yf_api = yf_manager.get_ticker_data()
 
 # display(df_res)
 # display(df_res.iloc[:, df_res.columns.get_level_values(1) == '^GDAXI'])
-display(output_yf_api.get('^GDAXI').df)
+# display(output_yf_api.get('^GDAXI').df)
 # print(output_yf_api.get('EURUSD=X'))
+print(output_yf_api.get('^GDAXI').df)
 print()

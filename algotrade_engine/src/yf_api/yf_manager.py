@@ -2,6 +2,7 @@ import yfinance as yf
 import algotrade_engine.conf.settings as settings
 from algotrade_engine.src.ticker import Ticker
 
+
 class YahooFinanceManager:
     """
     interface manager with yahoo finance API
@@ -70,6 +71,7 @@ class YahooFinanceManager:
                                                     'type_tbd',
                                                     self.raw_ticker_data\
                                                     .iloc[:, self.raw_ticker_data.columns.get_level_values(1) == ticker]
+                                                    .sort_index(ascending=False)
                                                     )
 
     def get_ticker_data(self) -> dict:
