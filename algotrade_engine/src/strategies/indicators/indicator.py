@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import pandas as pd
 
 
 class Indicator(ABC):
@@ -7,12 +8,9 @@ class Indicator(ABC):
     will enrich df with his own metrics
     """
 
-    def __init__(self, name):
-        self.name = name
-
-    def get_indicator(self, df) -> None:
-        return self.add_indicator(df)
+    def get_indicator(self, df) -> pd.DataFrame:
+        return self.calculate_indicator(df)
 
     @abstractmethod
-    def add_indicator(self, df) -> None:
+    def calculate_indicator(self, df: pd.DataFrame) -> pd.DataFrame:
         pass
