@@ -14,16 +14,25 @@ class Strategy(ABC):
         self.df = df
         self.indicators = []
 
-    @abstractmethod
     def build_strategy(self) -> None:
-        pass
-
-    def add_indicator(self, indicator: Indicator) -> None:
-        self.indicators.append(indicator)
+        """
+        Manager function that will trigger the creation of strategy on df
+        :return: None
+        """
+        self.add_indicators()
+        self.calculate_indicators()
+        self.add_triggers()
 
     def calculate_indicators(self) -> None:
         for indicator in self.indicators:
             self.df = indicator.get_indicator(self.df)
+
+    @abstractmethod
+    def add_indicators(self) -> None:
+        pass
+
+    def add_indicator(self, indicator: Indicator) -> None:
+        self.indicators.append(indicator)
 
     def add_triggers(self) -> None:
         self.add_buy_triggers()
