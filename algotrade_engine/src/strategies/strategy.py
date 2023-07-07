@@ -9,25 +9,25 @@ class Strategy(ABC):
     will enrich df with indicators, buy and sell triggers
     """
 
-    def __init__(self):
-        self.indicators = []
+    def __init__(self, df: pd.DataFrame):
         self.name = ''
+        self.df = df
+        self.indicators = []
 
     @abstractmethod
-    def build_strategy(self, df: pd.DataFrame) -> None:
+    def build_strategy(self) -> None:
         pass
 
     def add_indicator(self, indicator: Indicator) -> None:
         self.indicators.append(indicator)
 
-    def calculate_indicators(self, df: pd.DataFrame) -> pd.DataFrame:
-        res_df = None
+    def calculate_indicators(self) -> None:
         for indicator in self.indicators:
-            res_df = indicator.get_indicator(df)
-        return res_df
+            self.df = indicator.get_indicator(self.df)
 
-    # def get_strategy_df(self) -> pd.DataFrame:
-    #     return self.df
+    def add_triggers(self) -> None:
+        self.add_buy_triggers()
+        self.add_sell_triggers()
 
     @abstractmethod
     def add_buy_triggers(self) -> None:

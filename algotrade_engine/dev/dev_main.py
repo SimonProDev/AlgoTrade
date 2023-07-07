@@ -15,15 +15,13 @@ output_yf_api = yf_manager.get_ticker_data()
 
 
 pd.set_option('display.max_rows', None)
-df = pd.DataFrame(
-    {'Adj Close': [1, 2, 3],
-     'Open': [7, 8, 9]},
-    index=[1, 2, 3]
-)
 
 my_ticker = output_yf_api.get('^GDAXI')
-my_ticker.run_strategy(Swing())
+
+my_strategy = Swing(my_ticker.get_df().copy())
+my_strategy.build_strategy()
 # my_ticker.df = my_ticker.df.assign(new_col=lambda x: 'df_ticker')
 # my_ticker.strategy.df = my_ticker.strategy.df.assign(new_col=lambda x: 'df_strategy')
-display(my_ticker.df, name='my_ticker.df')
+display(my_ticker.get_df(), name='my_ticker.df')
+display(my_strategy.df, name='my_strategy.df')
 print()
