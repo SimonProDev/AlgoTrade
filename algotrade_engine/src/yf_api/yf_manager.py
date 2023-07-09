@@ -77,6 +77,9 @@ class YahooFinanceManager:
             self.clean_ticker_data.append(Ticker(ticker,
                                                  'type_tbd',
                                                  self.clean_df(ticker)))
+        # save dataframe for test
+        for ticker in self.clean_ticker_data:
+            ticker.get_df().to_parquet(f'{ticker.name}')
 
     def get_ticker_data(self) -> list:
         """
