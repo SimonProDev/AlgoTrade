@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-import pandas as pd
+from algotrade_engine.src.ticker import Ticker
 from algotrade_engine.src.strategies.indicators.indicator import Indicator
 
 
@@ -9,9 +9,9 @@ class Strategy(ABC):
     will enrich df with indicators, buy and sell triggers
     """
 
-    def __init__(self, df: pd.DataFrame):
+    def __init__(self, ticker: Ticker):
         self.name = ''
-        self.df = df
+        self.ticker = ticker
         self.indicators = []
 
     def build_strategy(self) -> None:
@@ -23,9 +23,10 @@ class Strategy(ABC):
         self.calculate_indicators()
         self.add_triggers()
 
+    # refactor for pythonic dictionary creation
     def calculate_indicators(self) -> None:
         for indicator in self.indicators:
-            self.df = indicator.get_indicator(self.df)
+            self.ticker.set_df(indicator.get_indicator(self.ticker.get_df()))
 
     @abstractmethod
     def add_indicators(self) -> None:

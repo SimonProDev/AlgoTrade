@@ -2,12 +2,13 @@ import pandas as pd
 import numpy as np
 from algotrade_engine.src.strategies.strategy import Strategy
 from algotrade_engine.src.strategies.indicators.candle_color import CandleColor
+from algotrade_engine.src.ticker import Ticker
 
 
 class Swing(Strategy):
 
-    def __init__(self, df: pd.DataFrame):
-        super().__init__(df)
+    def __init__(self, ticker: Ticker):
+        super().__init__(ticker)
         self.name = 'swing'
 
     def add_indicators(self) -> None:
@@ -19,10 +20,12 @@ class Swing(Strategy):
         tips: rolling backward is the same as rolling forward then shifting
         :return: None
         """
-        self.df['sum_last_4_candle_color'] = self.df['candle_color'] \
+        df = self.ticker.get_df()
+        df['sum_last_4_candle_color'] = df['candle_color'] \
             .transform(lambda x: x.rolling(4).sum().shift(-3))
-        self.df['buy_sell_trigger'] = np.where(self.df['sum_last_4_candle_color'] == 4, 1,
-                                               np.where(self.df['sum_last_4_candle_color'] == 0, -1, 0))
+        df['buy_sell_trigger'] = np.where(df['sum_last_4_candle_color'] == 4, 1,
+                                          np.where(df['sum_last_4_candle_color'] == 0, -1, 0))
+        self.ticker.set_df(df)
 
     def add_sell_triggers(self) -> None:
         pass

@@ -1,7 +1,5 @@
 import pandas as pd
 
-from algotrade_engine.src.strategies.strategy import Strategy
-
 
 class Ticker:
     """
@@ -16,3 +14,6 @@ class Ticker:
 
     def get_df(self) -> pd.DataFrame:
         return self.df
+
+    def set_df(self, df: pd.DataFrame) -> None:
+        self.df = df

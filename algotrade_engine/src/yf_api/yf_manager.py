@@ -10,7 +10,7 @@ class YahooFinanceManager:
 
     def __init__(self):
         self.raw_ticker_data = None
-        self.clean_ticker_data = {}
+        self.clean_ticker_data = []
         self.ticker_settings = {
             'ticker_list': [],
             'start_date': None,
@@ -74,11 +74,11 @@ class YahooFinanceManager:
         :return: None
         """
         for ticker in self.ticker_settings.get('ticker_list'):
-            self.clean_ticker_data[ticker] = Ticker(ticker,
-                                                    'type_tbd',
-                                                    self.clean_df(ticker))
+            self.clean_ticker_data.append(Ticker(ticker,
+                                                 'type_tbd',
+                                                 self.clean_df(ticker)))
 
-    def get_ticker_data(self) -> dict:
+    def get_ticker_data(self) -> list:
         """
         Return ticker data from yahoo finance API
         after cleaning
