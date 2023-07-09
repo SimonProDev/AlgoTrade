@@ -23,7 +23,6 @@ class Strategy(ABC):
         self.calculate_indicators()
         self.add_triggers()
 
-    # refactor for pythonic dictionary creation
     def calculate_indicators(self) -> None:
         for indicator in self.indicators:
             self.ticker.set_df(indicator.get_indicator(self.ticker.get_df()))
