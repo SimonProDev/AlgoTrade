@@ -1,6 +1,8 @@
 import copy
+
 from algotrade_engine.src.yf_api.yf_manager import YahooFinanceManager
 from algotrade_engine.src.strategies.swing import Swing
+from algotrade_engine.src.tools.charts_creator import ChartCreator
 from algotrade_engine.src.alerting.alerting_manager import AlertingManager
 
 
@@ -18,6 +20,7 @@ class AlgoTradeManager:
     def run_algotrade_app(self) -> None:
         self.download_ticker_data()
         self.run_strategy()
+        self.create_charts()
         # self.run_alerting()
 
     def download_ticker_data(self) -> None:
@@ -30,6 +33,12 @@ class AlgoTradeManager:
             strategy = Swing(copy.deepcopy(ticker))
             strategy.build_strategy()
             self.strategy.append(strategy)
+
+    def create_charts(self) -> None:
+        for ticker in self.ticker_data:
+            chart_creator = ChartCreator(ticker)
+            chart_creator.create_chart()
+            chart_creator.get_chart().show()
 
     def run_alerting(self) -> None:
         self.alerting_manager = AlertingManager()

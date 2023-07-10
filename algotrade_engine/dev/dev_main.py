@@ -14,9 +14,4 @@ pd.set_option('display.max_rows', None)
 
 algotrade_manager = AlgoTradeManager()
 algotrade_manager.run_algotrade_app()
-
-for ticker in algotrade_manager.ticker_data:
-    display(ticker.df, name='ticker')
-for strategy in algotrade_manager.strategy:
-    display(strategy.ticker.df, name='strategy')
 print()
