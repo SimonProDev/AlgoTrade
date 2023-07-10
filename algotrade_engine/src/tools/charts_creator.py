@@ -1,15 +1,29 @@
 import plotly.graph_objects as go
-import pandas as pd
-from algotrade_engine.src.tools.display_df import display
+from algotrade_engine.src.strategies.strategy import Strategy
 
-df = pd.read_parquet('../../dev/^GDAXI')
-# print(df['Adj Close', '^GDAXI'])
-# display(df.loc['Open.^GDAXI'])
-# print()
-fig = go.Figure(data=[go.Candlestick(x=df['t'],
-                open=df['Open', '^GDAXI'],
-                high=df['High', '^GDAXI'],
-                low=df['Low', '^GDAXI'],
-                close=df['Adj Close', '^GDAXI'])])
-fig.update_layout(yaxis_range=[15_400, 16_400])
-fig.show()
+
+class ChartCreator:
+    """
+    Create financial charts using plotly library
+    from Strategy object using pandas df
+    """
+
+    def __init__(self, strategy: Strategy):
+        self.strategy = strategy
+        self.chart = None
+
+    def create_chart(self):
+        df = self.strategy.ticker.get_df()
+        ticker_name = self.strategy.ticker.name
+        chart_data = go.Candlestick(x=df['t'],
+                                    open=df['Open', ticker_name],
+                                    high=df['High', ticker_name],
+                                    low=df['Low', ticker_name],
+                                    close=df['Adj Close', ticker_name],
+                                    increasing_line_color='green',
+                                    decreasing_line_color='red')
+        self.chart = go.Figure(data=[chart_data])\
+            .update_layout(xaxis_rangeslider_visible=False)
+
+    def get_chart(self):
+        return self.chart

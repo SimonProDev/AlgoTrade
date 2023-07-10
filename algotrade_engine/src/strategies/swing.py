@@ -28,4 +28,5 @@ class Swing(Strategy):
         self.ticker.set_df(df)
 
     def add_sell_triggers(self) -> None:
+        # sell triggers are created at the same time as buy triggers
         pass
