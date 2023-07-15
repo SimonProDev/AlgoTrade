@@ -22,7 +22,7 @@ class AlgoTradeManager:
         self.download_ticker_data()
         self.run_strategy()
         self.create_charts()
-        # self.run_alerting()
+        self.run_alerting()
 
     def download_ticker_data(self) -> None:
         self.yf_manager = YahooFinanceManager()
@@ -43,7 +43,8 @@ class AlgoTradeManager:
         for ticker in self.ticker_data:
             chart_creator = ChartCreator(ticker)
             chart_creator.create_chart()
-            chart_creator.get_chart().show()
+            # chart_creator.get_chart().show()
+            chart_creator.save_chart()
 
     def run_alerting(self) -> None:
         self.alerting_manager = AlertingManager()
