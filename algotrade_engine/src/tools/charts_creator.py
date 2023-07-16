@@ -13,7 +13,7 @@ class ChartCreator:
         self.chart = None
 
     def create_chart(self) -> None:
-        df = self.ticker.get_df()
+        df = self.ticker.get_df().sort_index(ascending=True)
         ticker_name = self.ticker.name
         chart_data = go.Candlestick(x=df['t'],
                                     open=df['Open', ticker_name],

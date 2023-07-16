@@ -51,19 +51,28 @@ class AlertingManager:
         html = """\
         <html>
           <body>
-            <img src='cid:image1' width=1000 height=800>
+            <p>
+            <img src='cid:image1' width=700 height=500>
+            </p>
+            <p>
+            <img src='cid:image2' width=700 height=500>
+            </p>
           </body>
         </html>
         """
-        # <img src="../tmp_files/EURUSD=X_chart.png">
+        # <img src="../tmp_files/^GDAXI_chart.png">
         # Turn these into html MIMEText objects
         html_content = MIMEText(html, "html")
         # Add html content to MIMEMultipart message
         self.message.attach(html_content)
 
         # add chart to html
+        with open('../tmp_files/^GDAXI_chart.jpg', 'rb') as img:
+            dax_image = MIMEImage(img.read())
         with open('../tmp_files/EURUSD=X_chart.jpg', 'rb') as img:
-            chart_image = MIMEImage(img.read())
+            eurusd_image = MIMEImage(img.read())
         # Define the image's ID as referenced above
-        chart_image.add_header('Content-ID', '<image1>')
-        self.message.attach(chart_image)
+        dax_image.add_header('Content-ID', '<image1>')
+        eurusd_image.add_header('Content-ID', '<image2>')
+        self.message.attach(dax_image)
+        self.message.attach(eurusd_image)

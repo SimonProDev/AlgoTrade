@@ -25,8 +25,8 @@ class AlgoTradeManager:
         self.run_alerting()
 
     def download_ticker_data(self) -> None:
-        self.yf_manager = YahooFinanceManager()
-        self.yf_manager.call_yf_api()
+        # self.yf_manager = YahooFinanceManager()
+        # self.yf_manager.call_yf_api()
         # with open('../dev/output_yf_api', 'wb') as f:
         #     pickle.dump(self.yf_manager.get_ticker_data(),
         #                 f)
@@ -43,7 +43,6 @@ class AlgoTradeManager:
         for ticker in self.ticker_data:
             chart_creator = ChartCreator(ticker)
             chart_creator.create_chart()
-            # chart_creator.get_chart().show()
             chart_creator.save_chart()
 
     def run_alerting(self) -> None:
