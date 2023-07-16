@@ -31,7 +31,7 @@ settings.TICKERS = [
     '^GDAXI',
     'EURUSD=X',
 ]
-settings.START_DT = '2023-07-03'
-settings.END_DT = None
-# settings.END_DT = '2023-07-06'
+settings.START_DT = '2023-07-01'
+# settings.END_DT = None
+settings.END_DT = '2023-07-04'
 settings.INTERVAL = '1h'

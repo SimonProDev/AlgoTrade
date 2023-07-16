@@ -27,6 +27,7 @@ class AlgoTradeManager:
     def download_ticker_data(self) -> None:
         # self.yf_manager = YahooFinanceManager()
         # self.yf_manager.call_yf_api()
+        # self.ticker_data = self.yf_manager.get_ticker_data()
         # with open('../dev/output_yf_api', 'wb') as f:
         #     pickle.dump(self.yf_manager.get_ticker_data(),
         #                 f)

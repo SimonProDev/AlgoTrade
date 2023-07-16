@@ -13,6 +13,7 @@ class Strategy(ABC):
         self.name = ''
         self.ticker = ticker
         self.indicators = []
+        self.trade_signal = 0
 
     def build_strategy(self) -> None:
         """
@@ -22,6 +23,7 @@ class Strategy(ABC):
         self.add_indicators()
         self.calculate_indicators()
         self.add_triggers()
+        self.add_trade_signal()
 
     def calculate_indicators(self) -> None:
         for indicator in self.indicators:
@@ -35,13 +37,17 @@ class Strategy(ABC):
         self.indicators.append(indicator)
 
     def add_triggers(self) -> None:
-        self.add_buy_triggers()
-        self.add_sell_triggers()
+        self.add_entry_triggers()
+        self.add_exit_triggers()
 
     @abstractmethod
-    def add_buy_triggers(self) -> None:
+    def add_entry_triggers(self) -> None:
         pass
 
     @abstractmethod
-    def add_sell_triggers(self) -> None:
+    def add_exit_triggers(self) -> None:
         pass
+
+    def add_trade_signal(self):
+        if self.ticker.get_df()['trade_trigger'].iloc[0] != 0:
+            self.trade_signal = self.ticker.get_df()['trade_trigger'].iloc[0]
