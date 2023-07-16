@@ -1,5 +1,7 @@
 import copy
 import pickle
+import os
+import glob
 
 from algotrade_engine.src.yf_api.yf_manager import YahooFinanceManager
 from algotrade_engine.src.strategies.swing import Swing
@@ -38,11 +40,18 @@ class AlgoTradeManager:
         for ticker in self.ticker_data:
             strategy = Swing(copy.deepcopy(ticker))
             strategy.build_strategy()
-            self.strategy.append(strategy)
+            if strategy.trade_signal != 0:
+                self.strategy.append(strategy)
 
     def create_charts(self) -> None:
-        for ticker in self.ticker_data:
-            chart_creator = ChartCreator(ticker)
+        # delete old charts in tmp_files before creating new ones
+        tmp_files_path = glob.glob('../tmp_files/*')
+        for chart in tmp_files_path:
+            os.remove(chart)
+
+        # create chart for ticker that have a trade_signal in strategy
+        for strategy in self.strategy:
+            chart_creator = ChartCreator(strategy.ticker)
             chart_creator.create_chart()
             chart_creator.save_chart()
 
