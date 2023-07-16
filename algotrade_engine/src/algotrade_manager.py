@@ -5,7 +5,7 @@ import glob
 
 from algotrade_engine.src.yf_api.yf_manager import YahooFinanceManager
 from algotrade_engine.src.strategies.swing import Swing
-from algotrade_engine.src.tools.charts_creator import ChartCreator
+from algotrade_engine.src.utils.charts_creator import ChartCreator
 from algotrade_engine.src.alerting.alerting_manager import AlertingManager
 
 

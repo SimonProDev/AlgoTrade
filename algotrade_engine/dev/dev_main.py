@@ -4,7 +4,7 @@ import importlib
 from algotrade_engine.src.alerting.alerting_manager import AlertingManager
 from algotrade_engine.src.algotrade_manager import AlgoTradeManager
 
-from algotrade_engine.src.tools.display_df import display
+from algotrade_engine.src.utils.display_df import display
 import pandas as pd
 
 

@@ -52,10 +52,8 @@ class AlertingManager:
         <html>
           <body>
             <p>
-            <img src='cid:image1' width=700 height=500>
-            </p>
-            <p>
-            <img src='cid:image2' width=700 height=500>
+              DAX
+              <img src='cid:image1' alt='DAX' width=700 height=500">
             </p>
           </body>
         </html>
@@ -69,10 +67,10 @@ class AlertingManager:
         # add chart to html
         with open('../tmp_files/^GDAXI_chart.jpg', 'rb') as img:
             dax_image = MIMEImage(img.read())
-        with open('../tmp_files/EURUSD=X_chart.jpg', 'rb') as img:
-            eurusd_image = MIMEImage(img.read())
+        # with open('../tmp_files/EURUSD=X_chart.jpg', 'rb') as img:
+        #     eurusd_image = MIMEImage(img.read())
         # Define the image's ID as referenced above
         dax_image.add_header('Content-ID', '<image1>')
-        eurusd_image.add_header('Content-ID', '<image2>')
+        # eurusd_image.add_header('Content-ID', '<image2>')
         self.message.attach(dax_image)
-        self.message.attach(eurusd_image)
+        # self.message.attach(eurusd_image)
