@@ -26,7 +26,7 @@ class ChartCreator:
             .update_layout(xaxis_rangeslider_visible=False)
 
     def save_chart(self):
-        self.chart.write_image(f'../tmp_files/{self.ticker.name}_chart.jpg')
+        self.chart.write_image(f'tmp_files/{self.ticker.name}_chart.jpg')
 
     def get_chart(self) -> go.Figure:
         return self.chart

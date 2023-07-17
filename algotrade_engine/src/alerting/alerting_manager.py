@@ -65,7 +65,7 @@ class AlertingManager:
         self.message.attach(html_content)
 
         # add chart to html
-        with open('../tmp_files/^GDAXI_chart.jpg', 'rb') as img:
+        with open('tmp_files/^GDAXI_chart.jpg', 'rb') as img:
             dax_image = MIMEImage(img.read())
         # with open('../tmp_files/EURUSD=X_chart.jpg', 'rb') as img:
         #     eurusd_image = MIMEImage(img.read())

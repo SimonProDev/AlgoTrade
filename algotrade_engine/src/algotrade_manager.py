@@ -33,7 +33,7 @@ class AlgoTradeManager:
         # with open('../dev/output_yf_api', 'wb') as f:
         #     pickle.dump(self.yf_manager.get_ticker_data(),
         #                 f)
-        with open('../dev/output_yf_api', 'rb') as pickle_file:
+        with open('dev/output_yf_api', 'rb') as pickle_file:
             self.ticker_data = pickle.load(pickle_file)
 
     def run_strategy(self) -> None:
