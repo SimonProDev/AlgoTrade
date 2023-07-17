@@ -1,4 +1,6 @@
 import plotly.graph_objects as go
+
+from algotrade_engine.conf import settings
 from algotrade_engine.src.ticker import Ticker
 
 
@@ -12,7 +14,13 @@ class ChartCreator:
         self.ticker = ticker
         self.chart = None
 
-    def create_chart(self) -> None:
+    def create_chart(self):
+        settings.logger.info(f'CREATE CHART FOR TICKER: {self.ticker.name}')
+        self.create_candlestick_chart()
+        settings.logger.info(f'SAVE CHART FOR TICKER: {self.ticker.name}')
+        self.save_chart()
+
+    def create_candlestick_chart(self) -> None:
         df = self.ticker.get_df().sort_index(ascending=True)
         ticker_name = self.ticker.name
         chart_data = go.Candlestick(x=df['t'],

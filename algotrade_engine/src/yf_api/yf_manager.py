@@ -27,7 +27,15 @@ class YahooFinanceManager:
                                  settings.START_DT,
                                  settings.END_DT,
                                  settings.INTERVAL)
+        settings.logger.info('SET TICKER SETTINGS:\n'
+                             f'TICKERS: {settings.TICKERS}\n'
+                             f'START DATE: {settings.START_DT}\n'
+                             f'END DATE: {settings.END_DT}\n'
+                             f'INTERVAL: {settings.INTERVAL}')
+
+        settings.logger.info('DOWNLOAD TICKER FROM YAHOO FINANCE API')
         self.download_ticker_data()
+        settings.logger.info('PREPARE TICKER DATA')
         self.prepare_ticker_data()
 
     def set_ticker_settings(self,

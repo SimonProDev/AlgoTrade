@@ -20,6 +20,7 @@ class AlertingManager:
         self.ctx = None
 
     def send_alerts(self) -> None:
+        settings.logger.info('SEND ALERT EMAIL')
         with smtplib.SMTP_SSL("smtp.gmail.com", self.port, context=self.ctx) as server:
             server.login(self.gmail_address,
                          self.gmail_password)

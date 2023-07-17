@@ -3,6 +3,8 @@ import pickle
 import os
 import glob
 
+from algotrade_engine.conf import settings
+
 from algotrade_engine.src.yf_api.yf_manager import YahooFinanceManager
 from algotrade_engine.src.strategies.swing import Swing
 from algotrade_engine.src.utils.charts_creator import ChartCreator
@@ -21,9 +23,13 @@ class AlgoTradeManager:
         self.alerting_manager = None
 
     def run_algotrade_app(self) -> None:
+        settings.logger.info('DOWNLOAD TICKER DATA')
         self.download_ticker_data()
+        settings.logger.info('RUN STRATEGIES')
         self.run_strategy()
+        settings.logger.info('CREATES CHARTS')
         self.create_charts()
+        settings.logger.info('RUN ALERTING')
         self.run_alerting()
 
     def download_ticker_data(self) -> None:
@@ -35,6 +41,8 @@ class AlgoTradeManager:
         #                 f)
         with open('dev/output_yf_api', 'rb') as pickle_file:
             self.ticker_data = pickle.load(pickle_file)
+
+        settings.logger.info('TICKER DATA DOWNLOADED')
 
     def run_strategy(self) -> None:
         for ticker in self.ticker_data:
@@ -53,7 +61,6 @@ class AlgoTradeManager:
         for strategy in self.strategy:
             chart_creator = ChartCreator(strategy.ticker)
             chart_creator.create_chart()
-            chart_creator.save_chart()
 
     def run_alerting(self) -> None:
         self.alerting_manager = AlertingManager()
