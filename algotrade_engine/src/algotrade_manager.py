@@ -4,6 +4,7 @@ import os
 import glob
 
 from algotrade_engine.conf import settings
+from algotrade_engine.src.utils.message_utils import create_logger_message
 
 from algotrade_engine.src.yf_api.yf_manager import YahooFinanceManager
 from algotrade_engine.src.strategies.swing import Swing
@@ -23,20 +24,20 @@ class AlgoTradeManager:
         self.alerting_manager = None
 
     def run_algotrade_app(self) -> None:
-        settings.logger.info('DOWNLOAD TICKER DATA')
+        settings.logger.info(create_logger_message('DOWNLOAD TICKER DATA'))
         self.download_ticker_data()
-        settings.logger.info('RUN STRATEGIES')
+        settings.logger.info(create_logger_message('RUN STRATEGIES'))
         self.run_strategy()
-        settings.logger.info('CREATES CHARTS')
+        settings.logger.info(create_logger_message('CREATES CHARTS'))
         self.create_charts()
-        settings.logger.info('RUN ALERTING')
+        settings.logger.info(create_logger_message('RUN ALERTING'))
         self.run_alerting()
 
     def download_ticker_data(self) -> None:
         # self.yf_manager = YahooFinanceManager()
         # self.yf_manager.call_yf_api()
         # self.ticker_data = self.yf_manager.get_ticker_data()
-        # with open('../dev/output_yf_api', 'wb') as f:
+        # with open('dev/output_yf_api', 'wb') as f:
         #     pickle.dump(self.yf_manager.get_ticker_data(),
         #                 f)
         with open('dev/output_yf_api', 'rb') as pickle_file:

@@ -2,10 +2,12 @@ import importlib
 import time
 import algotrade_engine.conf.settings as settings
 from algotrade_engine.src.algotrade_manager import AlgoTradeManager
+from algotrade_engine.src.utils.message_utils import create_app_logo
 
 
 def algo_trade_engine(app_param):
     start = time.perf_counter()
+    print(create_app_logo())
 
     # assign app_param in settings
     settings.APPLICATION_PARAMETERS = app_param
@@ -14,7 +16,6 @@ def algo_trade_engine(app_param):
     importlib.import_module('algotrade_engine.conf.config')
 
     # run application
-    print(settings.START_MESSAGE)
     algotrade_manager = AlgoTradeManager()
     algotrade_manager.run_algotrade_app()
 
