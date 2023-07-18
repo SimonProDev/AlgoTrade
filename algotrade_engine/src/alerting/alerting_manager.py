@@ -5,6 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 
 import algotrade_engine.conf.settings as settings
+from algotrade_engine.src.alerting.html_manager import HTMLCreator
 
 
 class AlertingManager:
@@ -49,27 +50,19 @@ class AlertingManager:
         self.message['Subject'] = subject
 
     def set_message(self) -> None:
-        # Create the plain-text and HTML version of your message
-        html = """\
-        <html>
-          <body>
-            <img src='cid:image1' alt='DAX' width=700 height=500">
-          </body>
-        </html>
-        """
-        # <img src="../tmp_files/^GDAXI_chart.png">
-        # Turn these into html MIMEText objects
-        html_content = MIMEText(html, "html")
+        # create html of email content
+        html = HTMLCreator(self.tickers_to_send)
+        html.build_html()
+        # transform into html MIMEText objects
+        html_content = MIMEText(html.get_html(), "html")
         # Add html content to MIMEMultipart message
         self.message.attach(html_content)
 
-        # add chart to html
-        with open('tmp_files/^GDAXI_chart.jpg', 'rb') as img:
-            dax_image = MIMEImage(img.read())
-        # with open('../tmp_files/EURUSD=X_chart.jpg', 'rb') as img:
-        #     eurusd_image = MIMEImage(img.read())
-        # Define the image's ID as referenced above
-        dax_image.add_header('Content-ID', '<image1>')
-        # eurusd_image.add_header('Content-ID', '<image2>')
-        self.message.attach(dax_image)
-        # self.message.attach(eurusd_image)
+        for ticker in self.tickers_to_send:
+            # add chart to html
+            with open(f'tmp_files/{ticker}_chart.jpg', 'rb') as img:
+                ticker_img = MIMEImage(img.read())
+                # Define the image's ID as referenced in HTMLCreator
+                ticker_img.add_header('Content-ID', ticker)
+                self.message.attach(ticker_img)
+        print(html.get_html())

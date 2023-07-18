@@ -27,3 +27,6 @@ class HTMLCreator:
 
     def add_chart_image(self, ticker_name: str) -> None:
         self.html.img(src=f'cid:{ticker_name}', alt=ticker_name)
+
+    def get_html(self) -> str:
+        return self.html
