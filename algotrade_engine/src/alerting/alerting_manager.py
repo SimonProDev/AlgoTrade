@@ -12,9 +12,10 @@ class AlertingManager:
     Manager alerts from financial markets to be sent by email (gmail account)
     """
 
-    def __init__(self):
+    def __init__(self, tickers_with_trade_signal: list):
         self.gmail_address = settings.GMAIL_ADDRESS
         self.gmail_password = settings.GMAIL_PASSWORD
+        self.tickers_to_send = tickers_with_trade_signal
         self.message = None
         self.port = 0
         self.ctx = None
@@ -52,10 +53,7 @@ class AlertingManager:
         html = """\
         <html>
           <body>
-            <p>
-              DAX
-              <img src='cid:image1' alt='DAX' width=700 height=500">
-            </p>
+            <img src='cid:image1' alt='DAX' width=700 height=500">
           </body>
         </html>
         """

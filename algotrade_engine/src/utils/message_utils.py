@@ -24,5 +24,5 @@ Date: 26/06/2023
 
 def create_logger_message(text: str) -> str:
     separator = '######################'
-    logger_message = f'\n\n{separator}\n{text}\n{separator}\n'
+    logger_message = f'\n\n{separator}\n{text}\n{separator}'
     return logger_message

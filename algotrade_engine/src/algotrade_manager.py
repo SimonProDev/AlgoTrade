@@ -42,10 +42,11 @@ class AlgoTradeManager:
         #                 f)
         with open('dev/output_yf_api', 'rb') as pickle_file:
             self.ticker_data = pickle.load(pickle_file)
-
         settings.logger.info('TICKER DATA DOWNLOADED')
 
     def run_strategy(self) -> None:
+        # apply strategy for each ticker
+        # add it to the strategy attribute if there is a trade signal
         for ticker in self.ticker_data:
             strategy = Swing(copy.deepcopy(ticker))
             strategy.build_strategy()
@@ -64,6 +65,6 @@ class AlgoTradeManager:
             chart_creator.create_chart()
 
     def run_alerting(self) -> None:
-        self.alerting_manager = AlertingManager()
+        self.alerting_manager = AlertingManager([strategy.ticker.name for strategy in self.strategy])
         self.alerting_manager.create_alters()
         self.alerting_manager.send_alerts()

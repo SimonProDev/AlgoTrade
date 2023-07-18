@@ -31,7 +31,9 @@ class ChartCreator:
                                     increasing_line_color='green',
                                     decreasing_line_color='red')
         self.chart = go.Figure(data=[chart_data])\
-            .update_layout(xaxis_rangeslider_visible=False)
+            .update_layout(xaxis_rangeslider_visible=False,
+                           title=dict(text=ticker_name,
+                                      font=dict(size=40)))
 
     def save_chart(self):
         self.chart.write_image(f'tmp_files/{self.ticker.name}_chart.jpg')
