@@ -16,12 +16,24 @@ settings.GMAIL_PASSWORD = str(os.getenv('GMAIL_PW'))
 # config for yf settings
 settings.TICKERS = [
     '^GDAXI',
+    '^FTSE',
+    '^STOXX50E',
+    '^DJI',
+    '^GSPC',
+    '^IXIC',
+    '^N225',
+    'GC=F',
+    'BZ=F',
     'EURUSD=X',
+    'JPY=X',
+    'GBPUSD=X',
+    'AUDUSD=X',
+    'EURGBP=X',
 ]
 
 settings.START_DT = '2023-07-01'
 # settings.END_DT = None
-settings.END_DT = '2023-07-04'
+settings.END_DT = ''
 settings.INTERVAL = '1h'
 settings.logger.info(f"""Application parameters:
 Set gmail logins using adress: {settings.GMAIL_ADDRESS}

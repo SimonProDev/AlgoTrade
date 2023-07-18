@@ -65,4 +65,3 @@ class AlertingManager:
                 # Define the image's ID as referenced in HTMLCreator
                 ticker_img.add_header('Content-ID', ticker)
                 self.message.attach(ticker_img)
-        print(html.get_html())

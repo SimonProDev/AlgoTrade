@@ -56,5 +56,8 @@ class Strategy(ABC):
         pass
 
     def add_trade_signal(self):
-        if self.ticker.get_df()['trade_trigger'].iloc[0] != 0:
-            self.trade_signal = self.ticker.get_df()['trade_trigger'].iloc[0]
+        # if pandas df has at leat 1 row and has a trade signal
+        # update trade_signal
+        if self.ticker.get_df().shape[0] > 0:
+            if self.ticker.get_df()['trade_trigger'].iloc[0] != 0:
+                self.trade_signal = self.ticker.get_df()['trade_trigger'].iloc[0]
