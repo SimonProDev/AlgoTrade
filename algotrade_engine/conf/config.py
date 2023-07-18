@@ -1,9 +1,10 @@
-import algotrade_engine.conf.settings as settings
 import importlib
-from pyfiglet import Figlet
 import os
 from dotenv import load_dotenv
 
+
+from algotrade_engine.src.utils.config_utils import calculate_start_date
+import algotrade_engine.conf.settings as settings
 
 # config logger
 importlib.import_module('algotrade_engine.conf.logger')
@@ -31,10 +32,10 @@ settings.TICKERS = [
     'EURGBP=X',
 ]
 
-settings.START_DT = '2023-07-01'
-# settings.END_DT = None
-settings.END_DT = ''
+settings.START_DT = calculate_start_date()
+settings.END_DT = None
 settings.INTERVAL = '1h'
+
 settings.logger.info(f"""Application parameters:
 Set gmail logins using adress: {settings.GMAIL_ADDRESS}
 Tickers analyzed: {", ".join(settings.TICKERS)}
