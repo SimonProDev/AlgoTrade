@@ -1,5 +1,6 @@
 import importlib
 import time
+import schedule
 import algotrade_engine.conf.settings as settings
 from algotrade_engine.src.algotrade_manager import AlgoTradeManager
 from algotrade_engine.src.utils.message_utils import create_app_logo
@@ -25,5 +26,10 @@ def algo_trade_engine(app_param):
 
 
 if __name__ == "__main__":
-    algo_trade_engine(app_param=['',
-                                 '1.0'])
+    # algo_trade_engine(app_param=['', '1.0'])
+    schedule.every(1).minutes.do(algo_trade_engine, ['', '1.0'])
+    while True:
+        # Checks whether a scheduled task is pending to run or not
+        schedule.run_pending()
+        time.sleep(1)
+

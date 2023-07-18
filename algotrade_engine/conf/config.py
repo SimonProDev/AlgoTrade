@@ -34,10 +34,10 @@ settings.TICKERS = [
 
 settings.START_DT = calculate_start_date()
 settings.END_DT = None
-settings.INTERVAL = '1h'
+settings.INTERVAL = '1m'
 
 settings.logger.info(f"""Application parameters:
-Set gmail logins using adress: {settings.GMAIL_ADDRESS}
+Set gmail logins using address: {settings.GMAIL_ADDRESS}
 Tickers analyzed: {", ".join(settings.TICKERS)}
 Start date: {settings.START_DT}
 End date: {settings.END_DT}
