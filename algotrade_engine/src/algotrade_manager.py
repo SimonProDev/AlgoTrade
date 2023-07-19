@@ -55,7 +55,7 @@ class AlgoTradeManager:
 
     def create_charts(self) -> None:
         # delete old charts in tmp_files before creating new ones
-        tmp_files_path = glob.glob('../tmp_files/*')
+        tmp_files_path = glob.glob('tmp_files/*.jpg')
         for chart in tmp_files_path:
             os.remove(chart)
 

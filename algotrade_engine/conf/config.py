@@ -32,9 +32,9 @@ settings.TICKERS = [
     'EURGBP=X',
 ]
 
-settings.START_DT = calculate_start_date()
+settings.START_DT = calculate_start_date(90)
 settings.END_DT = None
-settings.INTERVAL = '1m'
+settings.INTERVAL = '1h'
 
 settings.logger.info(f"""Application parameters:
 Set gmail logins using address: {settings.GMAIL_ADDRESS}

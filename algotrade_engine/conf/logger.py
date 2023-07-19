@@ -1,6 +1,11 @@
 import logging
 import algotrade_engine.conf.settings as settings
 
+# Logger config
+logging.basicConfig(filename="tmp_files/logs.log",
+                    format='%(asctime)s %(message)s',
+                    filemode='w')
+
 # Create logger
 logger = logging.getLogger('ALGOTRADE_LOGGER')
 logger.setLevel(logging.DEBUG)
