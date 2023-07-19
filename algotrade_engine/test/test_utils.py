@@ -12,3 +12,7 @@ def test_calculate_start_date():
 
 def test_create_logger_msg(expected_app_log):
     assert expected_app_log == create_app_logo()
+
+
+def test_create_logger_message(expected_logger_message):
+    assert expected_logger_message == create_logger_message('test')

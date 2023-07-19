@@ -19,3 +19,13 @@ Author : Simon BARGHI
 Date: 26/06/2023
 ##################################################################"""
     return expected_app_log
+
+
+@pytest.fixture
+def expected_logger_message():
+    expected_logger_message = """
+
+######################
+test
+######################"""
+    return expected_logger_message

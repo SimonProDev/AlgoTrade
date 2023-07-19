@@ -1,7 +1,5 @@
-import algotrade_engine.conf.settings as settings
 import tkinter as tk
 from pandastable import Table
-from pandas import DataFrame
 
 
 def display(df, name='dataframe', lines=1000):
