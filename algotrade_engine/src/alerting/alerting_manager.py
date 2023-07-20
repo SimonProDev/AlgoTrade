@@ -60,7 +60,7 @@ class AlertingManager:
 
         for ticker in self.tickers_to_send:
             # add chart to html
-            with open(f'tmp_files/{ticker}_chart.jpg', 'rb') as img:
+            with open(f'algotrade_engine/tmp_files/{ticker}_chart.jpg', 'rb') as img:
                 ticker_img = MIMEImage(img.read())
                 # Define the image's ID as referenced in HTMLCreator
                 ticker_img.add_header('Content-ID', ticker)

@@ -37,10 +37,10 @@ class AlgoTradeManager:
         self.yf_manager = YahooFinanceManager()
         self.yf_manager.call_yf_api()
         self.ticker_data = self.yf_manager.get_ticker_data()
-        with open('dev/output_yf_api', 'wb') as f:
+        with open('algotrade_engine/dev/output_yf_api', 'wb') as f:
             pickle.dump(self.yf_manager.get_ticker_data(),
                         f)
-        with open('dev/output_yf_api', 'rb') as pickle_file:
+        with open('algotrade_engine/dev/output_yf_api', 'rb') as pickle_file:
             self.ticker_data = pickle.load(pickle_file)
         settings.logger.info('TICKER DATA DOWNLOADED')
 
@@ -55,7 +55,7 @@ class AlgoTradeManager:
 
     def create_charts(self) -> None:
         # delete old charts in tmp_files before creating new ones
-        tmp_files_path = glob.glob('tmp_files/*.jpg')
+        tmp_files_path = glob.glob('algotrade_engine/tmp_files/*.jpg')
         for chart in tmp_files_path:
             os.remove(chart)
 
