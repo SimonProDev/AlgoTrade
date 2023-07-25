@@ -37,11 +37,11 @@ class AlgoTradeManager:
         self.yf_manager = YahooFinanceManager()
         self.yf_manager.call_yf_api()
         self.ticker_data = self.yf_manager.get_ticker_data()
-        with open('algotrade_engine/dev/output_yf_api', 'wb') as f:
-            pickle.dump(self.yf_manager.get_ticker_data(),
-                        f)
-        with open('algotrade_engine/dev/output_yf_api', 'rb') as pickle_file:
-            self.ticker_data = pickle.load(pickle_file)
+        # with open('tmp/output_yf_api', 'wb') as f:
+        #     pickle.dump(self.yf_manager.get_ticker_data(),
+        #                 f)
+        # with open('algotrade_engine/dev/output_yf_api', 'rb') as pickle_file:
+        #     self.ticker_data = pickle.load(pickle_file)
         settings.logger.info('TICKER DATA DOWNLOADED')
 
     def run_strategy(self) -> None:
@@ -55,8 +55,8 @@ class AlgoTradeManager:
 
     def create_charts(self) -> None:
         # delete old charts in tmp_files before creating new ones
-        tmp_files_path = glob.glob('algotrade_engine/tmp_files/*.jpg')
-        for chart in tmp_files_path:
+        old_charts = glob.glob('tmp/*.jpg')
+        for chart in old_charts:
             os.remove(chart)
 
         # create chart for ticker that have a trade_signal in strategy

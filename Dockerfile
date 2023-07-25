@@ -1,6 +1,5 @@
-FROM python:3
-WORKDIR /AlgoTrade
-COPY requirements.txt ./
+FROM public.ecr.aws/lambda/python:3.10
+COPY requirements.txt ${LAMBDA_TASK_ROOT}
+COPY . ${LAMBDA_TASK_ROOT}
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-CMD [ "python", "./launcher.py" ]
+CMD [ "lambda_function.handler" ]
