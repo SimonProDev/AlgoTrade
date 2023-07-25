@@ -2,6 +2,7 @@ import copy
 import pickle
 import os
 import glob
+from subprocess import call
 
 from algotrade_engine.conf import settings
 from algotrade_engine.src.utils.message_utils import create_logger_message
@@ -55,9 +56,10 @@ class AlgoTradeManager:
 
     def create_charts(self) -> None:
         # delete old charts in tmp_files before creating new ones
-        old_charts = glob.glob('tmp/*.jpg')
-        for chart in old_charts:
-            os.remove(chart)
+        # old_charts = glob.glob('/tmp/*.jpg')
+        # for chart in old_charts:
+        #     os.remove(chart)
+        call('rm -rf /tmp/*', shell=True)
 
         # create chart for ticker that have a trade_signal in strategy
         for strategy in self.strategy:
