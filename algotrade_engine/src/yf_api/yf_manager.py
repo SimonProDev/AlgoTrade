@@ -69,7 +69,7 @@ class YahooFinanceManager:
                                            interval=self.ticker_settings['interval'])
 
     def clean_df(self, ticker):
-        cleaned_df = self.raw_ticker_data.iloc[:, self.raw_ticker_data.columns.get_level_values(1) == ticker] \
+        cleaned_df = self.raw_ticker_data.iloc[1:, self.raw_ticker_data.columns.get_level_values(1) == ticker] \
             .sort_index(ascending=False) \
             .dropna()
         # create column with ti with 0 the last candlestick available
