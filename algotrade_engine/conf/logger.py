@@ -2,7 +2,7 @@ import logging
 import algotrade_engine.conf.settings as settings
 
 # Logger config
-logging.basicConfig(filename="algotrade_engine/tmp_files/logs.log",
+logging.basicConfig(filename="/tmp/logs.log",
                     format='%(asctime)s %(message)s',
                     filemode='w')
 
