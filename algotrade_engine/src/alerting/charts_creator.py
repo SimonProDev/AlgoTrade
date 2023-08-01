@@ -14,7 +14,7 @@ class ChartCreator:
         self.ticker = ticker
         self.chart = None
 
-    def create_chart(self):
+    def create_chart(self) -> None:
         settings.logger.info(f'CREATE CHART FOR TICKER: {self.ticker.name}')
         self.create_candlestick_chart()
         settings.logger.info(f'SAVE CHART FOR TICKER: {self.ticker.name}')
@@ -35,7 +35,7 @@ class ChartCreator:
                            title=dict(text=ticker_name,
                                       font=dict(size=40)))
 
-    def save_chart(self):
+    def save_chart(self) -> None:
         self.chart.write_image(f'/tmp/{self.ticker.name}_chart.jpg')
 
     def get_chart(self) -> go.Figure:

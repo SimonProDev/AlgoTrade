@@ -1,6 +1,5 @@
 import yfinance as yf
 import algotrade_engine.conf.settings as settings
-from algotrade_engine.src.ticker import Ticker
 
 
 class YahooFinanceManager:
@@ -10,7 +9,6 @@ class YahooFinanceManager:
 
     def __init__(self):
         self.raw_ticker_data = None
-        self.clean_ticker_data = []
         self.ticker_settings = {
             'ticker_list': [],
             'start_date': None,
@@ -35,8 +33,6 @@ class YahooFinanceManager:
 
         settings.logger.info('DOWNLOAD TICKER FROM YAHOO FINANCE API')
         self.download_ticker_data()
-        settings.logger.info('PREPARE TICKER DATA')
-        self.prepare_ticker_data()
 
     def set_ticker_settings(self,
                             ticker_list: list = None,
@@ -68,29 +64,9 @@ class YahooFinanceManager:
                                            end=self.ticker_settings['end_date'],
                                            interval=self.ticker_settings['interval'])
 
-    def clean_df(self, ticker):
-        cleaned_df = self.raw_ticker_data.iloc[1:, self.raw_ticker_data.columns.get_level_values(1) == ticker] \
-            .sort_index(ascending=False) \
-            .dropna()
-        # create column with ti with 0 the last candlestick available
-        cleaned_df['t'] = [f't{i}' for i in range(len(cleaned_df.index))]
-        return cleaned_df
-
-    def prepare_ticker_data(self) -> None:
-        """
-        Clean raw ticker data from yahoo finance API by creating a dict
-        with ticker_name and ticker object
-        :return: None
-        """
-        for ticker in self.ticker_settings.get('ticker_list'):
-            self.clean_ticker_data.append(Ticker(ticker,
-                                                 'type_tbd',
-                                                 self.clean_df(ticker)))
-
     def get_ticker_data(self) -> list:
         """
         Return ticker data from yahoo finance API
-        after cleaning
         :return: Dic of ticker object
         """
-        return self.clean_ticker_data
+        return self.raw_ticker_data
