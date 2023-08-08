@@ -41,11 +41,11 @@ class AlgoTradeManager:
         self.yf_manager = YahooFinanceManager()
         self.yf_manager.call_yf_api()
         self.ticker_data = self.yf_manager.get_ticker_data()
-        with open('tmp_files/output_yf_api', 'wb') as f:
-            pickle.dump(self.yf_manager.get_ticker_data(),
-                        f)
-        with open('tmp_files/output_yf_api', 'rb') as pickle_file:
-            self.ticker_data = pickle.load(pickle_file)
+        # with open('tmp_files/output_yf_api', 'wb') as f:
+        #     pickle.dump(self.yf_manager.get_ticker_data(),
+        #                 f)
+        # with open('tmp_files/output_yf_api', 'rb') as pickle_file:
+        #     self.ticker_data = pickle.load(pickle_file)
         settings.logger.info('TICKER DATA DOWNLOADED')
 
     def prepare_ticker_data(self):
