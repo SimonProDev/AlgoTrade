@@ -1,10 +1,12 @@
 import copy
+import importlib
 import pickle
 import os
 import glob
 from subprocess import call
 
 from algotrade_engine.conf import settings
+from algotrade_engine.src.ticker.init_tickers import initialize_tickers
 from algotrade_engine.src.utils.message_utils import create_logger_message
 from algotrade_engine.src.yf_api.prepare_data import PrepareData
 
@@ -26,6 +28,8 @@ class AlgoTradeManager:
         self.alerting_manager = None
 
     def run_algotrade_app(self) -> None:
+        settings.logger.info(create_logger_message('INITIALIZE TICKERS'))
+        initialize_tickers()
         settings.logger.info(create_logger_message('DOWNLOAD TICKER DATA'))
         self.download_ticker_data()
         settings.logger.info(create_logger_message('PREPARE TICKER DATA'))

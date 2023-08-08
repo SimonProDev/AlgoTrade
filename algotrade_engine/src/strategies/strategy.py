@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from algotrade_engine.conf import settings
-from algotrade_engine.src.ticker import Ticker
+from algotrade_engine.src.ticker.ticker import Ticker
 from algotrade_engine.src.strategies.indicators.indicator import Indicator
 
 

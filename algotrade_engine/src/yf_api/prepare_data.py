@@ -1,7 +1,7 @@
 import pandas as pd
 
 from algotrade_engine.conf import settings
-from algotrade_engine.src.ticker import Ticker
+from algotrade_engine.src.ticker.ticker import Ticker
 
 
 class PrepareData:

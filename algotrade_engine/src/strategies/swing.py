@@ -1,8 +1,7 @@
-import pandas as pd
 import numpy as np
 from algotrade_engine.src.strategies.strategy import Strategy
 from algotrade_engine.src.strategies.indicators.candle_color import CandleColor
-from algotrade_engine.src.ticker import Ticker
+from algotrade_engine.src.ticker.ticker import Ticker
 
 
 class Swing(Strategy):

@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 
 from algotrade_engine.conf import settings
-from algotrade_engine.src.ticker import Ticker
+from algotrade_engine.src.ticker.ticker import Ticker
 
 
 class ChartCreator:

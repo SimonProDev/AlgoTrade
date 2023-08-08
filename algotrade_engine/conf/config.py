@@ -1,5 +1,8 @@
 import importlib
 import os
+from datetime import datetime
+import pytz
+
 from dotenv import load_dotenv
 
 
@@ -15,31 +18,17 @@ settings.GMAIL_ADDRESS = str(os.getenv('GMAIL_ADDRESS'))
 settings.GMAIL_PASSWORD = str(os.getenv('GMAIL_PW'))
 
 # config for yf settings
-settings.TICKERS = [
-    '^GDAXI',
-    '^FTSE',
-    '^STOXX50E',
-    '^DJI',
-    '^GSPC',
-    '^IXIC',
-    '^N225',
-    'GC=F',
-    'BZ=F',
-    'EURUSD=X',
-    'JPY=X',
-    'GBPUSD=X',
-    'AUDUSD=X',
-    'EURGBP=X',
-]
-
 settings.START_DT = calculate_start_date(90)
 settings.END_DT = None
 settings.INTERVAL = '1h'
 
+tz_paris = pytz.timezone('Europe/Paris')
+settings.CURRENT_TIME = datetime.now(tz_paris).strftime("%H:%M:%S")
+
 settings.logger.info(f"""Application parameters:
 Set gmail logins using address: {settings.GMAIL_ADDRESS}
-Tickers analyzed: {", ".join(settings.TICKERS)}
 Start date: {settings.START_DT}
 End date: {settings.END_DT}
 Interval: {settings.INTERVAL}
+Current time: {settings.CURRENT_TIME}
 """)

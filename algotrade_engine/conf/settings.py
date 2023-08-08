@@ -11,3 +11,4 @@ TICKERS = None
 START_DT = None
 END_DT = None
 INTERVAL = None
+CURRENT_TIME = None
