@@ -22,7 +22,7 @@ class Strategy(ABC):
         Manager function that will trigger the creation of strategy on df
         :return: None
         """
-        settings.logger.info(f'RUN STRATEGY {self.name} FOR {self.ticker.name}')
+        settings.logger.info(f'RUN STRATEGY {self.name} FOR {self.ticker.user_name}')
         self.add_indicators()
         settings.logger.info(f'RUN STRATEGY ADD INDICATORS {[indicator.name for indicator in self.indicators]}')
         self.calculate_indicators()
@@ -56,8 +56,10 @@ class Strategy(ABC):
         pass
 
     def add_trade_signal(self):
-        # if pandas df has at leat 1 row and has a trade signal
+        # if pandas df has at least 1 row and has a trade signal
         # update trade_signal
         if self.ticker.get_df().shape[0] > 0:
             if self.ticker.get_df()['trade_trigger'].iloc[0] != 0:
                 self.trade_signal = self.ticker.get_df()['trade_trigger'].iloc[0]
+                self.trade_signal = 1
+

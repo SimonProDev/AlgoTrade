@@ -21,12 +21,12 @@ class YahooFinanceManager:
         Function manager to set parameters, download and prepare data
         :return: None
         """
-        self.set_ticker_settings(settings.TICKERS,
+        self.set_ticker_settings([ticker.yf_api_name for ticker in settings.TICKERS],
                                  settings.START_DT,
                                  settings.END_DT,
                                  settings.INTERVAL)
         settings.logger.info('SET TICKER SETTINGS:\n'
-                             f'TICKERS: {settings.TICKERS}\n'
+                             f'TICKERS: {", ".join(ticker.user_name for ticker in settings.TICKERS)}\n'
                              f'START DATE: {settings.START_DT}\n'
                              f'END DATE: {settings.END_DT}\n'
                              f'INTERVAL: {settings.INTERVAL}')

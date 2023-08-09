@@ -15,14 +15,14 @@ class ChartCreator:
         self.chart = None
 
     def create_chart(self) -> None:
-        settings.logger.info(f'CREATE CHART FOR TICKER: {self.ticker.name}')
+        settings.logger.info(f'CREATE CHART FOR TICKER: {self.ticker.yf_api_name}')
         self.create_candlestick_chart()
-        settings.logger.info(f'SAVE CHART FOR TICKER: {self.ticker.name}')
+        settings.logger.info(f'SAVE CHART FOR TICKER: {self.ticker.yf_api_name}')
         self.save_chart()
 
     def create_candlestick_chart(self) -> None:
         df = self.ticker.get_df().sort_index(ascending=True)
-        ticker_name = self.ticker.name
+        ticker_name = self.ticker.yf_api_name
         chart_data = go.Candlestick(x=df['t'],
                                     open=df['Open', ticker_name],
                                     high=df['High', ticker_name],
@@ -36,7 +36,7 @@ class ChartCreator:
                                       font=dict(size=40)))
 
     def save_chart(self) -> None:
-        self.chart.write_image(f'/tmp/{self.ticker.name}_chart.jpg')
+        self.chart.write_image(f'/tmp/{self.ticker.yf_api_name}_chart.jpg')
 
     def get_chart(self) -> go.Figure:
         return self.chart

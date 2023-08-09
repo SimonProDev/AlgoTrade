@@ -12,7 +12,6 @@ class PrepareData:
 
     def __init__(self, raw_ticker_data: pd.DataFrame):
         self.raw_ticker_data = raw_ticker_data
-        self.cleaned_ticker_data = []
 
     def clean_df(self, ticker):
         cleaned_df = self.raw_ticker_data.iloc[1:, self.raw_ticker_data.columns.get_level_values(1) == ticker] \
@@ -29,14 +28,4 @@ class PrepareData:
         :return: None
         """
         for ticker in settings.TICKERS:
-            self.cleaned_ticker_data.append(Ticker(ticker,
-                                                   'type_tbd',
-                                                   self.clean_df(ticker)))
-
-    def get_ticker_data(self) -> list:
-        """
-        Return ticker data from yahoo finance API
-        after cleaning
-        :return: Dic of ticker object
-        """
-        return self.cleaned_ticker_data
+            ticker.df = self.clean_df(ticker.yf_api_name)

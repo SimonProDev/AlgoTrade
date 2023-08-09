@@ -23,9 +23,7 @@ class AlgoTradeManager:
 
     def __init__(self):
         self.ticker_data = None
-        self.yf_manager = None
         self.strategy = []
-        self.alerting_manager = None
 
     def run_algotrade_app(self) -> None:
         settings.logger.info(create_logger_message('INITIALIZE TICKERS'))
@@ -42,9 +40,9 @@ class AlgoTradeManager:
         self.run_alerting()
 
     def download_ticker_data(self) -> None:
-        self.yf_manager = YahooFinanceManager()
-        self.yf_manager.call_yf_api()
-        self.ticker_data = self.yf_manager.get_ticker_data()
+        yf_manager = YahooFinanceManager()
+        yf_manager.call_yf_api()
+        self.ticker_data = yf_manager.get_ticker_data()
         # with open('tmp_files/output_yf_api', 'wb') as f:
         #     pickle.dump(self.yf_manager.get_ticker_data(),
         #                 f)
@@ -55,15 +53,15 @@ class AlgoTradeManager:
     def prepare_ticker_data(self):
         prepare_data = PrepareData(self.ticker_data)
         prepare_data.prepare_ticker_data()
-        self.ticker_data = prepare_data.get_ticker_data()
 
     def run_strategy(self) -> None:
         # apply strategy for each ticker
         # add it to the strategy attribute if there is a trade signal
-        for ticker in self.ticker_data:
-            strategy = Swing(copy.deepcopy(ticker))
+        for ticker in settings.TICKERS:
+            strategy = Swing(ticker)
             strategy.build_strategy()
             if strategy.trade_signal != 0:
+                settings.logger.info(f'TRADE SIGNAL IDENTIFIED FOR {ticker.yf_api_name}')
                 self.strategy.append(strategy)
 
     def create_charts(self) -> None:
@@ -71,7 +69,7 @@ class AlgoTradeManager:
         # old_charts = glob.glob('/tmp/*.jpg')
         # for chart in old_charts:
         #     os.remove(chart)
-        call('rm -rf /tmp/*', shell=True)
+        # call('rm -rf /tmp/*', shell=True)
 
         # create chart for ticker that have a trade_signal in strategy
         for strategy in self.strategy:
@@ -79,6 +77,6 @@ class AlgoTradeManager:
             chart_creator.create_chart()
 
     def run_alerting(self) -> None:
-        self.alerting_manager = AlertingManager([strategy.ticker.name for strategy in self.strategy])
-        self.alerting_manager.create_alters()
-        self.alerting_manager.send_alerts()
+        alerting_manager = AlertingManager([strategy.ticker.yf_api_name for strategy in self.strategy])
+        alerting_manager.create_alters()
+        alerting_manager.send_alerts()
