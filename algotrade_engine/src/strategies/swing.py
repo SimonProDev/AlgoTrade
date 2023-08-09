@@ -24,7 +24,7 @@ class Swing(Strategy):
         # refactor into indicator 'sum_last_4_candle_color' and add to indicators
         df['sum_last_4_candle_color'] = df['candle_color'] \
             .transform(lambda x: x.rolling(4).sum().shift(-3))
-        df['trade_trigger'] = np.where(df['sum_last_4_candle_color'] == 0, 1,
+        df['trade_trigger'] = np.where(df['sum_last_4_candle_color'] == 4, 1,
                                        np.where(df['sum_last_4_candle_color'] == 0, -1, 0))
         self.ticker.set_df(df)
 
