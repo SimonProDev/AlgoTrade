@@ -21,7 +21,7 @@ class ChartCreator:
         self.save_chart()
 
     def create_candlestick_chart(self) -> None:
-        df = self.ticker.get_df().sort_index(ascending=True).iloc[:51]
+        df = self.ticker.get_df().sort_index(ascending=True).iloc[-51:]
         ticker_name = self.ticker.yf_api_name
         chart_data = go.Candlestick(x=df['t'],
                                     open=df['Open', ticker_name],
