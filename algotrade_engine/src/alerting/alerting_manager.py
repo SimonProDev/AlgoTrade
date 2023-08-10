@@ -1,8 +1,11 @@
 import smtplib
 import ssl
+
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
+from email.mime.base import MIMEBase
+from email import encoders
 
 import algotrade_engine.conf.settings as settings
 from algotrade_engine.src.alerting.html_manager import HTMLCreator
@@ -36,6 +39,7 @@ class AlertingManager:
         self.set_context()
         self.set_subject()
         self.set_message()
+        self.set_attachments()
 
     def set_port(self, port: int = 465) -> None:
         self.port = port
@@ -48,6 +52,25 @@ class AlertingManager:
 
     def set_subject(self, subject: str = 'AlgoTrade alerts') -> None:
         self.message['Subject'] = subject
+
+    def set_attachments(self):
+        for ticker in settings.TICKERS:
+            ticker_df_csv = f'/tmp/df_{ticker.yf_api_name}.csv'
+            # Open csv file in binary mode
+            with open(ticker_df_csv, "rb") as attachment:
+                # Add file as application/octet-stream
+                # Email client can usually download this automatically as attachment
+                part = MIMEBase("application", "octet-stream")
+                part.set_payload(attachment.read())
+            # Encode file in ASCII characters to send by email
+            encoders.encode_base64(part)
+            # Add header as key/value pair to attachment part
+            part.add_header(
+                "Content-Disposition",
+                f"attachment; filename= {ticker.user_name}",
+            )
+            # Add attachment to message and convert message to string
+            self.message.attach(part)
 
     def set_message(self) -> None:
         # create html of email content
