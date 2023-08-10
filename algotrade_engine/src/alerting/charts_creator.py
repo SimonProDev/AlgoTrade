@@ -21,15 +21,15 @@ class ChartCreator:
         self.save_chart()
 
     def create_candlestick_chart(self) -> None:
-        df = self.ticker.get_df().sort_index(ascending=True)
+        df = self.ticker.get_df().sort_index(ascending=True).iloc[:51]
         ticker_name = self.ticker.yf_api_name
         chart_data = go.Candlestick(x=df['t'],
                                     open=df['Open', ticker_name],
                                     high=df['High', ticker_name],
                                     low=df['Low', ticker_name],
                                     close=df['Adj Close', ticker_name],
-                                    increasing_line_color='green',
-                                    decreasing_line_color='red')
+                                    increasing_line_color='light grey',
+                                    decreasing_line_color='black')
         self.chart = go.Figure(data=[chart_data])\
             .update_layout(xaxis_rangeslider_visible=False,
                            title=dict(text=ticker_name,
