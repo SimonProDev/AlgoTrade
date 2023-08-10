@@ -63,6 +63,8 @@ class AlgoTradeManager:
             if strategy.trade_signal != 0:
                 settings.logger.info(f'TRADE SIGNAL IDENTIFIED FOR {ticker.yf_api_name}')
                 self.strategy.append(strategy)
+            # save ticker df to csv
+            ticker.df.to_csv(f'/tmp/df_{ticker.yf_api_name}.csv')
 
     def create_charts(self) -> None:
         # delete old charts in tmp_files before creating new ones
