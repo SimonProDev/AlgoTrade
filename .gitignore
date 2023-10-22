@@ -1,4 +1,6 @@
 .env
 *pycache*
+/algotrade_engine/dev
 AlgoTrade.iml
 misc.xml
+/.idea
