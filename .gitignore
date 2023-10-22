@@ -1,14 +1,4 @@
 .env
-algotrade_engine/conf/__pycache__/config.cpython-310.pyc
-algotrade_engine/conf/__pycache__/logger.cpython-310.pyc
-algotrade_engine/conf/__pycache__/settings.cpython-310.pyc
-algotrade_engine/src/__pycache__/strategy.cpython-310.pyc
-algotrade_engine/src/__pycache__/ticker.cpython-310.pyc
-algotrade_engine/src/strategies/__pycache__/strategy.cpython-310.pyc
-algotrade_engine/src/strategies/__pycache__/swing.cpython-310.pyc
-algotrade_engine/src/strategies/indicators/__pycache__/indicator.cpython-310.pyc
-algotrade_engine/src/strategies/indicators/__pycache__/is_green_candle.cpython-310.pyc
-algotrade_engine/src/tools/__pycache__/display_df.cpython-310.pyc
-algotrade_engine/src/yf_api/__pycache__/yf_manager.cpython-310.pyc
+*pycache*
 AlgoTrade.iml
 misc.xml
